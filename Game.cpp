@@ -45,16 +45,20 @@ void Game::update(void) {
         }
     }
 
-    if (delta % 3 == 0) {
+    if (delta % 4 == 0) {
         currentFallingBlock.posY += 1;
     }
 
-    if (delta >= 300) {
+    if (delta >= 400) {
         delta = 0;
     }
 
     if (currentFallingBlock.posY >= height) {
-        lista->InsertarPos(currentFallingBlock.num, currentFallingBlock.posX/3);
+        if (lista->Obtener(currentFallingBlock.posX/3) != -1) {
+            lista->InsertarPos(-1, currentFallingBlock.posX/3);
+        } else {
+            lista->InsertarPos(currentFallingBlock.num, currentFallingBlock.posX/3);
+        }
         currentFallingBlock = FallingBlock(nextNum, Utils::randomInt(0, width - 3, 3), 0);
         nextNum = Utils::randomInt(1, 10);
     }
